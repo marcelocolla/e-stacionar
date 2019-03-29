@@ -56,7 +56,7 @@
                     <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Confirme sua senha">
                   </div>
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                <a href="" class="btn btn-primary btn-user btn-block">
                   Registrar
                 </a>
                 <hr>
