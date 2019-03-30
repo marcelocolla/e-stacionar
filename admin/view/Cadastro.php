@@ -10,8 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="icon" type="image/x-icon" class="js-site-favicon" href="img/favicon.ico">
 
-  <title>SB Admin 2 - Register</title>
+  <title>E-stacionar</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,13 +29,12 @@
         <div class="row">
           <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
           <div class="col-lg-7">
-                <img src="">
-            <div class="p-5">
-                   
+              <div class="p-5"> 
               <div class="text-center">
-                    <img src="img/logo.jpg" class="img-fluid max-width: 10%" alt="Responsive image">
-                    
-                <h1 class="h4 text-gray-900 mb-4">Registre-se</h1>
+                    <img src="img/logo.png" class="img-fluid max-width: 10%" alt="Responsive image">
+                <br>
+                <br>
+                <h1 class="h5 text-gray-900 mb-4">Registre-se</h1>
               </div>
               <form class="user">
                 <div class="form-group row">
@@ -59,9 +59,7 @@
                 <a href="" class="btn btn-primary btn-user btn-block">
                   Registrar
                 </a>
-                <hr>
               </form>
-              <hr>
               </div>
             </div>
           </div>
