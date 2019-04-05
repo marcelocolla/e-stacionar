@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="text-center">
                                         <br>
-                                        <a class="small" href="cadastro.php">Criar nova conta.</a>
+                                        <a class="small" href="Cadastro.php">Criar nova conta.</a>
                                         <br>
                                     </div>
                                     <br>
