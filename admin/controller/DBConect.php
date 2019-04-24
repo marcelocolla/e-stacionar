@@ -3,10 +3,10 @@
 class DBConect
 {
     private $conexao;
-    private $MYSQL_USUARIO = 'root';
-    private $MYSQL_SENHA = '';
-    private $MYSQL_IP = 'localhost';
-    private $MYSQL_DATABASE = 'estacionar';
+    private $MYSQL_USUARIO = 'bea532f504895e';
+    private $MYSQL_SENHA = '0b610eb9';
+    private $MYSQL_IP = 'us-cdbr-iron-east-02.cleardb.net';
+    private $MYSQL_DATABASE = 'heroku_ab52c01e945ea67';
 
     public function getDadosConexao() {
         return array($this->MYSQL_USUARIO, $this->MYSQL_SENHA, $this->MYSQL_IP, $this->MYSQL_DATABASE);
@@ -54,6 +54,10 @@ class DBConect
     public function Desconectar()
     {
         @mysqli_close($this->conexao);
+    }
+
+    public function getConexao () {
+        return $this->conexao;
     }
 
 
