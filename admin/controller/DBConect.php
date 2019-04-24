@@ -21,7 +21,8 @@ class DBConect
     public function Conectar()
     {
         global $Sess;
-        if ($Sess->logado()) {
+
+        if (true) {
             // Conecta no Banco de Dados
             $this->conexao = @mysqli_connect($this->MYSQL_IP, $this->MYSQL_USUARIO, $this->MYSQL_SENHA, $this->MYSQL_DATABASE);
             @mysqli_set_charset($this->conexao, 'utf8');
@@ -36,7 +37,7 @@ class DBConect
                 exit();
             }
         } else {
-            $Sess->destroy(true);
+            // $Sess->destroy(true);
             echo json_encode(array(
                 "success" => false,
                 "msg" => "Usuario deslogado do sistema."
