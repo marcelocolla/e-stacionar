@@ -14,8 +14,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#da532c">
+    <meta name="msapplication-TileColor" content="#495477">
+    <meta name="theme-color" content="#495477">
 
     <title>E-stacionar</title>
     <!-- Custom styles for this template-->
