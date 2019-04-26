@@ -23,4 +23,12 @@
     <link href="css/estacionar.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/1b6e5751d6.js"></script>
+
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+      window.TrackJS && TrackJS.install({
+        token: "a02ffbb5ef0c46138a9c23b9785517ba"
+        // for more configuration options, see https://docs.trackjs.com
+      });
+    </script>
 </head>
