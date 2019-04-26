@@ -22,7 +22,7 @@
                         </div>
 
                         <a href="/admin/view/index.php" class="btn btn-primary btn-user btn-block">
-                            Logar
+                            Entrar
                         </a>
                     </form>
                 </div>
