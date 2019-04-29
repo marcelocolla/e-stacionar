@@ -6,7 +6,7 @@ require_once('../controller/DBConect.php');
 $con = new DBConect();
 $con->Conectar();
 $db = $con->getConexao();
-$result = mysqli_query($db, "SELECT * FROM usuarios");
+$result = mysqli_query($db, "SELECT * FROM usuario");
 
 // Initialize array variable
 $response = array();
