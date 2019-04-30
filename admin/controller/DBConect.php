@@ -30,8 +30,7 @@ class DBConect
                 $Sess->logado_sys = false;
                 echo json_encode(array(
                     "success" => false,
-                    "msg" => "Erro ao Conectar ao Banco de Dados.",
-                    "erro" => 1,
+                    "message" => "Erro ao Conectar ao Banco de Dados.",
                     "error" => @mysqli_connect_error()
                 ));
                 exit();
@@ -40,7 +39,7 @@ class DBConect
             // $Sess->destroy(true);
             echo json_encode(array(
                 "success" => false,
-                "msg" => "Usuario deslogado do sistema."
+                "message" => "Usuario deslogado do sistema."
             ));
             exit();
         }
