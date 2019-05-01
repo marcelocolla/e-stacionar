@@ -37,9 +37,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-user btn-block mb-4">Registrar</button>
+                        <button type="submit" class="btn btn-primary btn-user btn-block">Registrar</button>
 
-                        <div class="alert d-none" role="alert"></div>
+                        <div class="alert d-none mt-4" role="alert"></div>
                     </form>
                 </div>
 
