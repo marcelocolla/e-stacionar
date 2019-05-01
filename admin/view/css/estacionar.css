@@ -32,3 +32,9 @@ a.white {
 .form-group.has-error .with-errors {
     color: #ffb6b6;
 }
+
+
+.btn-play {
+    padding: 0;
+    color: #fff;
+}
