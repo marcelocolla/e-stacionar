@@ -13,7 +13,7 @@
                         <h1 class="h5 text-white">Registrar-se</h1>
                     </div>
 
-                    <form class="user" id="form-validator" role="form" action="/admin/api/clientes.php">
+                    <form class="user form-validator" form-validator="cadastro" role="form" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user" placeholder="Nome" name="Nome" required>
                             <div class="help-block with-errors"></div>
@@ -37,7 +37,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-user btn-block">Registrar</button>
+                        <button type="submit" class="btn btn-primary btn-user btn-block mb-4">Registrar</button>
+
+                        <div class="alert d-none" role="alert"></div>
                     </form>
                 </div>
 

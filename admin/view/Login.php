@@ -1,4 +1,6 @@
-<?php include 'includes/header.php'; ?>
+<?php
+    require_once 'includes/head.php';
+?>
 
 <body class="bg-gradient-primary">
     <div class="container">
@@ -13,17 +15,19 @@
                         <h1 class="h5 text-white">Faça seu login.</h1>
                     </div>
 
-                    <form class="user" id="form-validator" role="form" action="/admin/api/clientes.php">
+                    <form class="user form-validator" form-validator="login" role="form">
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Digite seu e-mail" name="Email" required>
+                            <input type="email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Digite seu e-mail" name="email" required>
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control form-control-user" placeholder="Senha" name="Senha" required>
+                            <input type="password" class="form-control form-control-user" placeholder="Senha" name="senha" required>
                             <div class="help-block with-errors"></div>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-user btn-block">Entrar</button>
+
+                        <div class="alert d-none" role="alert"></div>
                     </form>
                 </div>
 

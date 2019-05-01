@@ -54,25 +54,10 @@ function getData () {
     $id = $request_json->Id_usuario;
 
     if (!empty($id)) {
-        getUser($id);
+        // location;
     } else {
         getAllUsers();
     }
-}
-
-function getUser ($id) {
-    // $con = new DBConect();
-    // $con->Conectar();
-    // $db = $con->getConexao();
-
-    // $table = 'usuario';
-    // $result = mysqli_query($db, "SELECT * FROM " . $table . " where Id_usuario = " . $id);
-
-    // Print array in JSON format
-    echo json_encode(array(
-        'Id_usuario' => $id,
-        'Nome' => 'Nome do Tcho'
-    ));
 }
 
 function getAllUsers () {

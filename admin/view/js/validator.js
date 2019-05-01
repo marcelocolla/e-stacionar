@@ -19,28 +19,83 @@
 })(jQuery);
 
 ;(function () {
-    var form = $('#form-validator');
+    var form = $('.form-validator'),
+        alertMessage = form.find('.alert'),
+        routes = {
+            login: '/admin/api/auth.php',
+            cadastro: '/admin/api/clientes.php'
+        };
 
     form.validator().on('submit', function (e) {
+        alertMessage
+            .removeClass('d-none alert-warning')
+            .hide();
+
         if (e.isDefaultPrevented()) {
-            // handle the invalid form...
+            alertMessage
+                .addClass('alert-warning')
+                .text('Prencha todos os campos!')
+                .show();
         } else {
-            e.preventDefault();
-            sendForm(form);
+            var path = e.target.getAttribute('form-validator'),
+                route = routes[path];
+
+            switch (path) {
+                case 'login':
+                    formLogin(route);
+                    break;
+                case 'cadastro':
+                    formCadastro(route);
+                    break;
+
+            }
         }
+
+        e.preventDefault();
     });
 
-    function sendForm (form) {
-        var url = form.attr('action'),
-            data = form.serializeFormJSON(),
-            req = $.ajax({ type: 'POST', url, data });
+    function formLogin (url) {
+        sendForm(form, url)
+            .then(function (response) {
+                form.trigger('reset');
 
-        req.done(function (response) {
-            // form.reset();
-            // alert(result.message);
-        })
-        .fail(function (response) {
-            // alert('Erro: ' + response.message);
-        });
+                window.location.href = "/admin/view/index.php";
+            }, function (response){
+                var message = response.responseJSON.message;
+
+                showAlert(message);
+            });
+    }
+
+    function formCadastro (url) {
+        sendForm(form, url)
+            .then(function (response) {
+                var message = response.message;
+
+                form.trigger('reset');
+
+                showAlert(message, 'success');
+            }, function (response){
+                var message = response.responseJSON.message;
+
+                showAlert(message);
+            });
+    }
+
+    function showAlert (message, state) {
+        state = state || 'warnig';
+
+        alertMessage
+            .addClass('alert-' + state)
+            .text(message)
+            .show();
+    }
+
+    function sendForm (target, url) {
+        var url = url || target.attr('action'),
+            type = target.attr('method') || 'GET',
+            data = target.serializeFormJSON();
+
+        return $.ajax({ type, url, data });
     }
 })();
