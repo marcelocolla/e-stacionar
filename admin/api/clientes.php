@@ -19,22 +19,14 @@ function insertData () {
         $con = new DBConect();
         $con->Conectar();
         $db = $con->getConexao();
-
         $table = 'usuario';
 
-        $json_str = file_get_contents('php://input');
-
-        # Get as an object
-        $request_json = json_decode($json_str);
-
-        $nome = $request_json->Nome;
-        $cpf = $request_json->Cpf;
-        $email = $request_json->Email;
-        $senha = $request_json->Senha;
+        $nome = $_POST['Nome'];
+        $cpf = $_POST['Cpf'];
+        $email = $_POST['Email'];
+        $senha = $_POST['Senha'];
 
         $sql = "INSERT INTO " . $table . " (Nome, Cpf, Email, Senha) VALUES ('$nome', '$cpf', '$email', '$senha')";
-
-        $array = json_decode($json, true);
 
         if (mysqli_query($db, $sql)) {
             echo json_encode(array(

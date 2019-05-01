@@ -22,3 +22,13 @@ a.white {
     font-size: 20px;
     margin-left: 16px;
 }
+
+/* Validar formulario */
+.form-group.has-error .form-control {
+    border-color: #f00;
+    box-shadow: 0 0 2px 4px rgba(0,0,0, 0.2);
+}
+
+.form-group.has-error .with-errors {
+    color: #ffb6b6;
+}
