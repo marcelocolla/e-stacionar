@@ -20,10 +20,11 @@
 
 ;(function () {
     var form = $('.form-validator'),
+        origin = window.location.origin || '',
         alertMessage = form.find('.alert'),
         routes = {
-            login: '/admin/api/auth.php',
-            cadastro: '/admin/api/clientes.php'
+            login: origin + '/admin/api/auth.php',
+            cadastro: origin + '/admin/api/clientes.php'
         };
 
     form.validator().on('submit', function (e) {
