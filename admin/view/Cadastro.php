@@ -44,22 +44,10 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    <script src="js/validator.js">
-        function rCpf(value) {
-            if (typeof value === "undefined") {
-                return "";
-            }
-            if (value != "") {
-                value = value.replace(/\D/g, "");                 //Remove tudo o que não é dígito
-                value = value.replace(/(\d{3})(\d)/, "$1.$2");    // Coloca ponto entre o terceiro e o quarto digito
-                value = value.replace(/(\d{3})(\d)/, "$1.$2");    // Coloca ponto entre o sexto e o sétimo digito
-                value = value.replace(/(\d{3})(\d)/, "$1-$2");    // Coloca hífen entre o nono e décimo digito
-            }
-            return value;
-        }
-    </script>
+
 </body>
 
-</html>
+</html> 

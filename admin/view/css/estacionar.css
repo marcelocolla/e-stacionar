@@ -1,0 +1,40 @@
+body {
+    color: #C0D0FA;
+}
+
+a.white {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+.app-heading {
+    background-color: #fff;
+    color: #2851C4;
+    padding: 16px 24px;
+    display: block;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 24px rgba(0,0,0, 0.2);
+    min-height: 64px;
+}
+
+.app-heading .user-name {
+    font-size: 20px;
+    margin-left: 16px;
+}
+
+/* Validar formulario */
+.form-group.has-error .form-control {
+    border-color: #f00;
+    box-shadow: 0 0 2px 4px rgba(0,0,0, 0.2);
+}
+
+.form-group.has-error .with-errors {
+    color: #ffb6b6;
+}
+
+
+.btn-play {
+    padding: 0;
+    color: #fff;
+}
