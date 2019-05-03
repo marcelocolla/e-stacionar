@@ -2,8 +2,9 @@
 header('Content-Type: application/json');
 
 require_once('../controller/DBConect.php');
+require_once('../model/usuario.php');
 
-switch($_SERVER['REQUEST_METHOD']) {
+switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         insertData();
         break;
@@ -14,39 +15,62 @@ switch($_SERVER['REQUEST_METHOD']) {
 }
 
 
-function insertData () {
+function insertData()
+{
     // if (!empty($_POST)) {
-        $con = new DBConect();
-        $con->Conectar();
-        $db = $con->getConexao();
-        $table = 'usuario';
+    $con = new DBConect();
+    $con->Conectar();
+    $db = $con->getConexao();
+    $usuario = new usuario();
 
-        $nome = $_POST['Nome'];
-        $cpf = $_POST['Cpf'];
-        $email = $_POST['Email'];
-        $senha = $_POST['Senha'];
+    $usuario->setCampo('Nome', $_POST['Nome']);
+    $usuario->setCampo('Cpf', $_POST['Cpf']);
+    $usuario->setCampo('Email', $_POST['Email']);
+    $usuario->setCampo('Senha', $_POST['Senha']);
 
-        $sql = "INSERT INTO " . $table . " (Nome, Cpf, Email, Senha) VALUES ('$nome', '$cpf', '$email', '$senha')";
-
-        if (mysqli_query($db, $sql)) {
-            echo json_encode(array(
-                'success'=> true,
-                'message'=> 'Registro inserido com sucesso!'
-            ));
+    $sql = "INSERT INTO " .
+        $usuario->getCampo('tabela');
+    $cont = 0;
+    foreach ($usuario AS $key => $usr) {
+        if ($cont = 0) {
+            $sql .= sprintf("%s ", $key);
         } else {
-            echo json_encode(array(
-                'success'=> false,
-                'message'=> 'Falhar ao inserir registro, por favor tente novamente!',
-                'error'  => mysqli_error($db)
-            ));
+            $sql .= sprintf(", %s", $key);
         }
+        $cont++;
+    }
+    $sql .= " VALUES (";
+    $cont = 0;
+    foreach ($usuario AS $key => $usr) {
+        if ($cont = 0) {
+            $sql .= sprintf("%s ", $usuario->getCampo($key));
+        } else {
+            $sql .= sprintf(", %s", $usuario->getCampo($key));
+        }
+        $cont++;
+    }
+    $sql .= ");";
+
+    if (mysqli_query($db, $sql)) {
+        echo json_encode(array(
+            'success' => true,
+            'message' => 'Registro inserido com sucesso!'
+        ));
+    } else {
+        echo json_encode(array(
+            'success' => false,
+            'message' => 'Falhar ao inserir registro, por favor tente novamente!',
+            'error' => mysqli_error($db)
+        ));
+    }
 
     // } else {
     //     header("Location: index.php");
     // }
 }
 
-function getData () {
+function getData()
+{
     $json_str = file_get_contents('php://input');
 
     # Get as an object
@@ -60,7 +84,8 @@ function getData () {
     }
 }
 
-function getAllUsers () {
+function getAllUsers()
+{
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
@@ -72,7 +97,7 @@ function getAllUsers () {
     $response = array();
 
     // Fetch into associative array
-    while ($row = mysqli_fetch_assoc($result))  {
+    while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
 
