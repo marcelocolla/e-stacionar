@@ -20,10 +20,12 @@
 
 ;(function () {
     var form = $('.form-validator'),
+        origin = window.location.origin || '',
         alertMessage = form.find('.alert'),
         routes = {
-            login: '/admin/api/auth.php',
-            cadastro: '/admin/api/clientes.php'
+            login: origin + '/admin/api/auth.php',
+            cadastro: origin + '/admin/api/clientes.php',
+            placa: origin + '/admin/api/placa.php'
         };
 
     form.validator().on('submit', function (e) {
@@ -47,6 +49,9 @@
                 case 'cadastro':
                     formCadastro(route);
                     break;
+                case 'contagem':
+                    formContagem(route);
+                    break;
 
             }
         }
@@ -59,12 +64,16 @@
             .then(function (response) {
                 form.trigger('reset');
 
-                window.location.href = "/admin/view/index.php";
+                window.location.href = origin + "/admin/view/index.php";
             }, function (response){
                 var message = response.responseJSON.message;
 
                 showAlert(message);
             });
+    }
+
+    function formContagem (url) {
+        window.location.href = origin + "/admin/view/Contagem.php";
     }
 
     function formCadastro (url) {
