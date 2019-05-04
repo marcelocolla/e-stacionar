@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 
 require_once('../controller/DBConect.php');
 require_once('../model/usuario.php');
+require_once('../controller/DBUtils.php');
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
@@ -22,35 +23,12 @@ function insertData()
     $con->Conectar();
     $db = $con->getConexao();
     $usuario = new usuario();
-
-    $usuario->setCampo('Nome', $_POST['Nome']);
-    $usuario->setCampo('Cpf', $_POST['Cpf']);
-    $usuario->setCampo('Email', $_POST['Email']);
-    $usuario->setCampo('Senha', $_POST['Senha']);
-
-    $sql = "INSERT INTO " .
-        $usuario->getCampo('tabela');
-    $cont = 0;
-    foreach ($usuario AS $key => $usr) {
-        if ($cont = 0) {
-            $sql .= sprintf("%s ", $key);
-        } else {
-            $sql .= sprintf(", %s", $key);
-        }
-        $cont++;
-    }
-    $sql .= " VALUES (";
-    $cont = 0;
-    foreach ($usuario AS $key => $usr) {
-        if ($cont = 0) {
-            $sql .= sprintf("%s ", $usuario->getCampo($key));
-        } else {
-            $sql .= sprintf(", %s", $usuario->getCampo($key));
-        }
-        $cont++;
-    }
-    $sql .= ");";
-
+    $dbutil = new DBUtils();
+    $usuario->setCampo('Nome', $dbutil->paraTexto($_POST['Nome']));
+    $usuario->setCampo('Cpf', $dbutil->paraTexto($_POST['Cpf']));
+    $usuario->setCampo('Email', $dbutil->paraTexto($_POST['Email']));
+    $usuario->setCampo('Senha', $dbutil->paraTexto($_POST['Senha']));
+    $sql = $dbutil->Insert($usuario);
     if (mysqli_query($db, $sql)) {
         echo json_encode(array(
             'success' => true,
