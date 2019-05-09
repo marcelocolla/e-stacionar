@@ -15,9 +15,9 @@
                             <div class="col-9">
                                 <input type="text" class="form-control form-control-user" placeholder="Digite uma placa" required>
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 box-play">
                                 <button type="submit" class="btn btn-play">
-                                    <i class="fas fa-play fa-3x"></i>
+                                    <i class="icon fas fa-play"></i>
                                 </button>
                             </div>
                         </div>
@@ -30,9 +30,9 @@
                                 $link = '/admin/view/Contagem.php?placa=' . $placa;
                         ?>
                         <li>
-                            <a href="<?php echo $link; ?>" class="list-item ">
+                            <a href="<?php echo $link; ?>" class="list-item">
                                 <span class="placa"><?php echo $placa; ?></span>
-                                <i class="icon fas fa-play fa-3x"></i>
+                                <i class="icon fas fa-play"></i>
                             </a>
                         </li>
                         <?php
