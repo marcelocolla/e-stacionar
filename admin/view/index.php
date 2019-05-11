@@ -13,7 +13,7 @@
                     <form class="user form-validator" form-validator="contagem" role="form">
                         <div class="form-group row">
                             <div class="col-9">
-                                <input type="text" class="form-control form-control-user" placeholder="Digite uma placa" required>
+                                <input type="text" class="form-control form-control-user" placeholder="Digite uma placa" name="placa" required>
                             </div>
                             <div class="col-3 box-play">
                                 <button type="submit" class="btn btn-play">

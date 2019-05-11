@@ -144,9 +144,9 @@ a.white {
     align-items: center;
     margin: 0 auto;
     flex-direction: column;
-    width: 220px;
-    height: 220px;
-    border-radius: 220px;
+    width: 260px;
+    height: 260px;
+    border-radius: 260px;
     text-align: center;
 }
 
@@ -155,8 +155,17 @@ a.white {
     color: #4e73df;
     font-weight: bold;
     line-height: 76px;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 0;
     letter-spacing: 0.05em;
+}
+
+.wrap-contador .timer .segundos {
+    font-size: 24px;
+    font-weight: normal;
+    display: inline-block;
+    min-width: 50px;
+    text-align: left;
 }
 
 .wrap-contador .label {
