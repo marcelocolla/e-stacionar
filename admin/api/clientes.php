@@ -2,8 +2,10 @@
 header('Content-Type: application/json');
 
 require_once('../controller/DBConect.php');
+require_once('../model/usuario.php');
+require_once('../controller/DBUtils.php');
 
-switch($_SERVER['REQUEST_METHOD']) {
+switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         insertData();
         break;
@@ -14,39 +16,39 @@ switch($_SERVER['REQUEST_METHOD']) {
 }
 
 
-function insertData () {
+function insertData()
+{
     // if (!empty($_POST)) {
-        $con = new DBConect();
-        $con->Conectar();
-        $db = $con->getConexao();
-        $table = 'usuario';
-
-        $nome = $_POST['Nome'];
-        $cpf = $_POST['Cpf'];
-        $email = $_POST['Email'];
-        $senha = $_POST['Senha'];
-
-        $sql = "INSERT INTO " . $table . " (Nome, Cpf, Email, Senha) VALUES ('$nome', '$cpf', '$email', '$senha')";
-
-        if (mysqli_query($db, $sql)) {
-            echo json_encode(array(
-                'success'=> true,
-                'message'=> 'Registro inserido com sucesso!'
-            ));
-        } else {
-            echo json_encode(array(
-                'success'=> false,
-                'message'=> 'Falhar ao inserir registro, por favor tente novamente!',
-                'error'  => mysqli_error($db)
-            ));
-        }
+    $con = new DBConect();
+    $con->Conectar();
+    $db = $con->getConexao();
+    $usuario = new usuario();
+    $dbutil = new DBUtils();
+    $usuario->setCampo('Nome', $dbutil->paraTexto($_POST['Nome']));
+    $usuario->setCampo('Cpf', $dbutil->paraTexto($_POST['Cpf']));
+    $usuario->setCampo('Email', $dbutil->paraTexto($_POST['Email']));
+    $usuario->setCampo('Senha', $dbutil->paraTexto($_POST['Senha']));
+    $sql = $dbutil->Insert($usuario);
+    if (mysqli_query($db, $sql)) {
+        echo json_encode(array(
+            'success' => true,
+            'message' => 'Registro inserido com sucesso!'
+        ));
+    } else {
+        echo json_encode(array(
+            'success' => false,
+            'message' => 'Falhar ao inserir registro, por favor tente novamente!',
+            'error' => mysqli_error($db)
+        ));
+    }
 
     // } else {
     //     header("Location: index.php");
     // }
 }
 
-function getData () {
+function getData()
+{
     $json_str = file_get_contents('php://input');
 
     # Get as an object
@@ -60,7 +62,8 @@ function getData () {
     }
 }
 
-function getAllUsers () {
+function getAllUsers()
+{
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
@@ -72,7 +75,7 @@ function getAllUsers () {
     $response = array();
 
     // Fetch into associative array
-    while ($row = mysqli_fetch_assoc($result))  {
+    while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
 
