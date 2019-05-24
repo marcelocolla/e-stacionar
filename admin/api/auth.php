@@ -2,20 +2,29 @@
 header('Content-Type: application/json');
 
 require_once('../controller/DBConect.php');
+require_once('../model/usuario.php');
+require_once('../controller/DBUtils.php');
 
 authUser();
 
-function authUser () {
+function authUser()
+{
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
-    $table = 'usuario';
+    $usuario = new usuario();
+    $dbUtl = new DBUtils();
 
     // params
-    $email = $_GET['email'];
-    $senha = $_GET['senha'];
+    $usuario->setCampo("Email", $dbUtl->paraTexto($_GET['email']));
+    $usuario->setCampo("Senha", $dbUtl->paraTexto(MD5($_GET['senha'])));
 
-    $query = "SELECT * FROM " . $table . " where Email = '$email' AND Senha = '$senha'";
+    $query = sprintf("SELECT * FROM %s WHERE Email = %s AND Senha = %s",
+        $usuario->getCampo("tabela"),
+        $usuario->getCampo("Email"),
+        $usuario->getCampo("Senha")
+    );
+
     $result = mysqli_query($db, $query);
     $response = mysqli_fetch_assoc($result);
 

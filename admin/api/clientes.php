@@ -27,7 +27,7 @@ function insertData()
     $usuario->setCampo('Nome', $dbutil->paraTexto($_POST['Nome']));
     $usuario->setCampo('Cpf', $dbutil->paraTexto($_POST['Cpf']));
     $usuario->setCampo('Email', $dbutil->paraTexto($_POST['Email']));
-    $usuario->setCampo('Senha', $dbutil->paraTexto($_POST['Senha']));
+    $usuario->setCampo('Senha', $dbutil->paraTexto(MD5($_POST['Senha'])));
     $sql = $dbutil->Insert($usuario);
     if (mysqli_query($db, $sql)) {
         echo json_encode(array(
