@@ -10,7 +10,7 @@
             <div class="col col-lg-6">
                 <div class="justify-content-center text-center mt-5">
 
-                    <form class="user form-validator" form-validator="contagem" role="form">
+                    <form class="user" action="Contagem.php" method="get" role="form">
                         <div class="form-group row">
                             <div class="col-9">
                                 <input type="text" class="form-control form-control-user" placeholder="Digite uma placa" name="placa" required>
