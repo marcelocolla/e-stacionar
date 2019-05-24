@@ -37,7 +37,7 @@
 
     </div>
 
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="js/moment.min.js"></script>
     <script src="js/timer-regresivo.js"></script>
 </body>
 </html>

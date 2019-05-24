@@ -32,13 +32,18 @@ Number.prototype.pad = function(size) {
 
         req.then(function (response) {
             var result = JSON.parse(response),
+                now = moment(),
                 dataInicio = moment(result.data_inicio),
-                dataFinal = moment(result.data_final);
+                dataFinal = moment(result.data_final),
+                diffDate = now.diff(dataInicio);
 
-            duracao = moment.duration(dataFinal - dataInicio, 'milliseconds'),
-            timer = setInterval(updateTimer, 1000),
+            if (dataFinal.diff(now) > 0) {
+                dataInicio.add(diffDate, 'milliseconds');
+                duracao = moment.duration(dataFinal - dataInicio, 'milliseconds'),
+                timer = setInterval(updateTimer, 1000),
 
-            updateTimer();
+                updateTimer();
+            }
         }, function (response) {
             alert('Erro ao consultar placa do veículo!');
         });
