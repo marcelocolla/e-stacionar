@@ -13,7 +13,7 @@
                     <form class="user" action="Contagem.php" method="get" role="form">
                         <div class="form-group row">
                             <div class="col-9">
-                                <input type="text" class="form-control form-control-user" placeholder="Digite uma placa" name="placa" required>
+                                <input type="text" id="placa" class="form-control form-control-user" placeholder="Digite uma placa" name="placa" required>
                             </div>
                             <div class="col-3 box-play">
                                 <button type="submit" class="btn btn-play">
@@ -25,19 +25,19 @@
 
                     <ul class="list-veiculo">
                         <?php
-                            for ($i=0; $i < 4; $i++) :
-                                $placa = 'ABR-3U' . rand(100, 999);
-                                $link = '/admin/view/Contagem.php?placa=' . $placa;
-                        ?>
-                        <li>
-                            <a href="<?php echo $link; ?>" class="list-item">
-                                <span class="placa"><?php echo $placa; ?></span>
-                                <i class="icon fas fa-play"></i>
-                            </a>
-                        </li>
+                        for ($i = 0; $i < 4; $i++) :
+                            $placa = 'ABR-3U' . rand(100, 999);
+                            $link = '/admin/view/Contagem.php?placa=' . $placa;
+                            ?>
+                            <li>
+                                <a href="<?php echo $link; ?>" class="list-item">
+                                    <span class="placa"><?php echo $placa; ?></span>
+                                    <i class="icon fas fa-play"></i>
+                                </a>
+                            </li>
                         <?php
-                            endfor;
-                        ?>
+                    endfor;
+                    ?>
                     </ul>
 
                 </div>
@@ -47,6 +47,13 @@
     </div>
 
     <script src="js/validator.js"></script>
-
+    <script>
+        $(document).ready(function() {
+            $("#placa").inputmask({
+                mask: ['AAA-9999', 'AAA-9A99']
+            });
+        })
+    </script>
 </body>
+
 </html>
