@@ -6,15 +6,7 @@ require_once('../model/historico.php');
 require_once('../controller/DBUtils.php');
 
 
-switch ($_SERVER['REQUEST_METHOD']) {
-    case 'POST':
-        insertHora();
-        break;
-
-    case 'GET':
-    default:
-        getData();
-}
+updateHora();
 
 function returnSelect($_prPlaca)
 {
@@ -36,33 +28,33 @@ function returnSelect($_prPlaca)
     return $sql;
 }
 
-function insertHora()
+function updateHora()
 {
-    // if (!empty($_POST)) {
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
     $hist = new historico();
     $dbutil = new DBUtils();
-    $result = mysqli_query($db, returnSelect($_POST['placa']));
+    $placa = $_POST['placa'];
+    $historico = $_POST['id_hst'];
+    $result = mysqli_query($db, returnSelect($placa));
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
     if (!$response) {
-        $hist->setCampo('T_inicial', $dbutil->paraTexto($_POST['hora_inicio']));
-        $hist->setCampo('T_final', $dbutil->paraTexto($_POST['hora_fim']));
-        $hist->setCampo('Id_usuario', $dbutil->paraTexto($_POST['id_usr']));
-        $sql = $dbutil->Insert($hist);
+        $hist->setCampo('T_final', $dbutil->paraTexto(Date("Y-m-d H:i:s")));
+        $condicao = sprintf("Id_historico = %s", $historico);
+        $sql = $dbutil->Update($hist,$condicao);
         if (mysqli_query($db, $sql)) {
             echo json_encode(array(
                 'success' => true,
-                'message' => 'Registro inserido com sucesso!',
+                'message' => 'Tempo registrado com sucesso!',
                 'placa' => $response[0]['Placa']
             ));
         } else {
             echo json_encode(array(
                 'success' => false,
-                'message' => 'Falha ao inserir registro, por favor tente novamente!',
+                'message' => 'Falha registrar tempo, por favor tente novamente!',
                 'error' => mysqli_error($db)
             ));
         }
@@ -76,30 +68,4 @@ function insertHora()
             'placa' => $response[0]['Placa']
         ));
     }
-}
-
-function getData()
-{
-    $con = new DBConect();
-    $con->Conectar();
-    $db = $con->getConexao();
-    $result = mysqli_query($db, returnSelect($_POST['placa']));
-    // Initialize array variable
-    $response = array();
-
-    // Fetch into associative array
-    while ($row = mysqli_fetch_assoc($result)) {
-        $response[] = $row;
-    }
-
-    // Print array in JSON format
-    echo json_encode(array(
-        'success' => true,
-        'message' => 'Contagem ativa!',
-        'result' => $response,
-        'id' => $response[0]['Id_historico'],
-        'data_inicio' => $response[0]['T_inicial'],
-        'data_final' => $response[0]['T_final'],
-        'placa' => $response[0]['Placa']
-    ));
 }
