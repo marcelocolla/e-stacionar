@@ -49,8 +49,13 @@ function insertHora()
         $response[] = $row;
     }
     if (!$response) {
-        $hist->setCampo('T_inicial', $dbutil->paraTexto($_POST['hora_inicio']));
-        $hist->setCampo('T_final', $dbutil->paraTexto($_POST['hora_fim']));
+        $hist->setCampo('T_inicial', $dbutil->paraTexto(date("Y-m-d H:i:s")));
+        $hist->setCampo('T_final', $dbutil->paraTexto(date("Y-m-d H:i:s",
+                strtotime("+2 hours",
+                    strtotime(date("Y-m-d H:i:s"))
+                )
+            )
+        ));
         $hist->setCampo('Id_usuario', $dbutil->paraTexto($_POST['id_usr']));
         $sql = $dbutil->Insert($hist);
         if (mysqli_query($db, $sql)) {
