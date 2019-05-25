@@ -31,4 +31,5 @@
   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="js/jquery.inputmask.bundle.js"></script>
+   
 </head>
