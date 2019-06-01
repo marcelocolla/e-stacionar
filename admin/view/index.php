@@ -27,7 +27,7 @@
                         <?php
                         for ($i = 0; $i < 4; $i++) :
                             $placa = 'ABR-3U' . rand(100, 999);
-                            $link = '/admin/view/Contagem.php?placa=' . $placa;
+                            $link = 'Contagem.php?placa=' . $placa;
                             ?>
                             <li>
                                 <a href="<?php echo $link; ?>" class="list-item">
