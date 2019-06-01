@@ -21,7 +21,7 @@ function returnSelect($_prPlaca)
     $hist = new historico();
     $dbutil = new DBUtils();
     // Separa o Select em partes para não ficar uma linha muito extensa.
-    $campos = 'h.Id_historico, h.T_inicial, h.T_final, h.Placa';
+    $campos = 'h.Id_historico, h.T_inicial, h.T_final, h.placa';
     $table = sprintf("%s AS h", $hist->getCampo('tabela'));
     $joinUsuario = 'JOIN usuario AS u ON h.Id_usuario = u.Id_usuario';
     $joinVeiculo = 'LEFT JOIN veiculo AS v ON u.Id_usuario = v.Id_usuario';
@@ -44,10 +44,11 @@ function insertHora()
     $hist = new historico();
     $dbutil = new DBUtils();
     $result = mysqli_query($db, returnSelect($_POST['placa']));
+    $response = null;
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
-    if (count($response) == 0) {
+    if (!$response) {
         $hist->setCampo('T_inicial', $dbutil->paraTexto(date("Y-m-d H:i:s")));
         // gera a hora final com 2 horas incrementadas a partir a hora atual.
         $hist->setCampo('T_final', $dbutil->paraTexto(date("Y-m-d H:i:s",
