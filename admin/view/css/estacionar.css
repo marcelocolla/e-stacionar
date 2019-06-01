@@ -6,6 +6,9 @@ body {
 a.white {
     color: rgba(255, 255, 255, 0.7);
 }
+.text-center{
+    text-align: center;
+}
 
 .btn-stop,
 .btn-salvar {
