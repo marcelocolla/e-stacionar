@@ -10,6 +10,7 @@ Number.prototype.pad = function(size) {
         horaById = document.getElementById('hora'),
         minutosById = document.getElementById('minutos'),
         segundosById = document.getElementById('segundos'),
+        dataInicio = null,
         dataFinal = null,
         atual = null,
         duracao = null,
@@ -30,17 +31,14 @@ Number.prototype.pad = function(size) {
             data = { placa },
             req = $.ajax({ type: 'POST', url, data });
 
-        req.then(function (response) {
-            var result = response,
-                now = moment(),
-                dataInicio = moment(result.data_inicio),
-                dataFinal = moment(result.data_final),
-                diffDate = now.diff(dataInicio);
+        req.then(function (result) {
+            var now = moment();
+
+            dataInicio = moment(result.data_inicio);
+            dataFinal = moment(result.data_final);
 
             if (dataFinal.diff(now) > 0) {
-                dataInicio.add(diffDate, 'milliseconds');
-                duracao = moment.duration(dataFinal - dataInicio, 'milliseconds');
-                timer = setInterval(updateTimer, 1000);
+                timer = setInterval(updateTimer, 330);
 
                 updateTimer();
             }
@@ -76,11 +74,16 @@ Number.prototype.pad = function(size) {
     }
 
     function updateTimer () {
-        var hours = duracao.hours(),
+        var now = moment(),
+            diffDate = now.diff(dataInicio);
+
+        dataInicio.add(diffDate, 'milliseconds');
+
+        var duracao = moment.duration(dataFinal - dataInicio, 'milliseconds'),
+            diffDate = now.diff(dataInicio),
+            hours = duracao.hours(),
             minutes = duracao.minutes(),
             seconds = duracao.seconds();
-
-        duracao = moment.duration(duracao - 1000, 'milliseconds');
 
         horaById.innerHTML = (hours).pad();
         minutosById.innerHTML = (minutes).pad();
