@@ -28,10 +28,10 @@ Number.prototype.pad = function(size) {
     function consultarPlaca () {
         var url = origin + '/admin/api/contador.php',
             data = { placa },
-            req = $.ajax({ type: 'GET', url, data });
+            req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (response) {
-            var result = JSON.parse(response),
+            var result = response,
                 now = moment(),
                 dataInicio = moment(result.data_inicio),
                 dataFinal = moment(result.data_final),
@@ -39,8 +39,8 @@ Number.prototype.pad = function(size) {
 
             if (dataFinal.diff(now) > 0) {
                 dataInicio.add(diffDate, 'milliseconds');
-                duracao = moment.duration(dataFinal - dataInicio, 'milliseconds'),
-                timer = setInterval(updateTimer, 1000),
+                duracao = moment.duration(dataFinal - dataInicio, 'milliseconds');
+                timer = setInterval(updateTimer, 1000);
 
                 updateTimer();
             }
@@ -50,9 +50,9 @@ Number.prototype.pad = function(size) {
     }
 
     function salvarPlaca () {
-        var url = origin + '/admin/api/salvar-placa.php',
+        var url = origin + '/admin/api/contador.php',
             data = { placa },
-            req = $.ajax({ type: 'GET', url, data });
+            req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (response) {
             var result = JSON.parse(response);

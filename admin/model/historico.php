@@ -2,13 +2,15 @@
 
 class historico
 {
-    private $Id_historico = null;
-
     private $T_inicial = null;
 
     private $T_final = null;
 
     private $Id_usuario = null;
+
+    private $placa = null;
+
+    private $ativo = null;
 
     private $tabela = 'historico';
 

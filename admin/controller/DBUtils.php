@@ -24,12 +24,14 @@ class DBUtils
             // verifica se o atributo é tabela, se for não considera neste ponto
             if ($atribute != 'tabela') {
                 // valida se a posição é zero, se for não insere virgula
-                if ($key == 0) {
-                    $this->campos = sprintf("%s", $atribute);
-                    $this->valores = sprintf("%s", $_prClass->getCampo($atribute));
-                } else {
-                    $this->campos .= sprintf(", %s", $atribute);
-                    $this->valores .= sprintf(", %s", $_prClass->getCampo($atribute));
+                if ($_prClass->getCampo($atribute)) {
+                    if ($key == 0) {
+                        $this->campos = sprintf("%s", $atribute);
+                        $this->valores = sprintf("%s", $_prClass->getCampo($atribute));
+                    } else {
+                        $this->campos .= sprintf(", %s", $atribute);
+                        $this->valores .= sprintf(", %s", $_prClass->getCampo($atribute));
+                    }
                 }
             }
         }
@@ -54,9 +56,9 @@ class DBUtils
                 if ($atribute != 'tabela') {
                     // validação utilizada para que só insira virgula caso não seja a primeira posição
                     if ($key == 0) {
-                        $this->update = sprintf("%s = %s", $atribute,$_prClass->getCampo($atribute));
+                        $this->update = sprintf("%s = %s", $atribute, $_prClass->getCampo($atribute));
                     } else {
-                        $this->update = sprintf(", %s = %s", $atribute,$_prClass->getCampo($atribute));
+                        $this->update = sprintf(", %s = %s", $atribute, $_prClass->getCampo($atribute));
                     }
                 }
             }
