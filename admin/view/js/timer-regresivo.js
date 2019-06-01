@@ -29,7 +29,7 @@ Number.prototype.pad = function(size) {
     function consultarPlaca () {
         var url = origin + '/admin/api/contador.php',
             data = { placa },
-            req = $.ajax({ type: 'GET', url, data });
+            req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (result) {
             var now = moment();
@@ -48,9 +48,9 @@ Number.prototype.pad = function(size) {
     }
 
     function salvarPlaca () {
-        var url = origin + '/admin/api/salvar-placa.php',
+        var url = origin + '/admin/api/contador.php',
             data = { placa },
-            req = $.ajax({ type: 'GET', url, data });
+            req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (response) {
             var result = JSON.parse(response);

@@ -21,11 +21,11 @@ function returnSelect($_prPlaca)
     $hist = new historico();
     $dbutil = new DBUtils();
     // Separa o Select em partes para não ficar uma linha muito extensa.
-    $campos = ' h.Id_historico, h.T_inicial, h.T_final, v.Placa';
+    $campos = 'h.Id_historico, h.T_inicial, h.T_final, h.placa';
     $table = sprintf("%s AS h", $hist->getCampo('tabela'));
     $joinUsuario = 'JOIN usuario AS u ON h.Id_usuario = u.Id_usuario';
-    $joinVeiculo = 'JOIN veiculo AS v ON u.Id_usuario = v.Id_usuario';
-    $condicao = sprintf("v.Placa = %s", $dbutil->paraTexto($_prPlaca));
+    $joinVeiculo = 'LEFT JOIN veiculo AS v ON u.Id_usuario = v.Id_usuario';
+    $condicao = sprintf("h.Placa = %s AND ativo = 1", $dbutil->paraTexto($_prPlaca));
     $sql = sprintf("SELECT %s FROM %s %s %s WHERE %s",
         $campos,
         $table,
@@ -38,26 +38,36 @@ function returnSelect($_prPlaca)
 
 function insertHora()
 {
-    // if (!empty($_POST)) {
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
     $hist = new historico();
     $dbutil = new DBUtils();
     $result = mysqli_query($db, returnSelect($_POST['placa']));
+    $response = null;
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
     if (!$response) {
-        $hist->setCampo('T_inicial', $dbutil->paraTexto($_POST['hora_inicio']));
-        $hist->setCampo('T_final', $dbutil->paraTexto($_POST['hora_fim']));
-        $hist->setCampo('Id_usuario', $dbutil->paraTexto($_POST['id_usr']));
+        $hist->setCampo('T_inicial', $dbutil->paraTexto(date("Y-m-d H:i:s")));
+        // gera a hora final com 2 horas incrementadas a partir a hora atual.
+        $hist->setCampo('T_final', $dbutil->paraTexto(date("Y-m-d H:i:s",
+                strtotime("+2 hours",
+                    strtotime(date("Y-m-d H:i:s"))
+                )
+            )
+        ));
+        $hist->setCampo('Id_usuario', 3);
+        $hist->setCampo('placa', $dbutil->paraTexto($_POST['placa']));
+        $hist->setCampo('ativo', 1);
         $sql = $dbutil->Insert($hist);
         if (mysqli_query($db, $sql)) {
             echo json_encode(array(
                 'success' => true,
                 'message' => 'Registro inserido com sucesso!',
-                'placa' => $response[0]['Placa']
+                'data_inicio' => str_replace("'",'',$hist->getCampo('T_inicial')),
+                'data_final' =>  str_replace("'",'',$hist->getCampo('T_final')),
+                'placa' => $hist->getCampo('placa')
             ));
         } else {
             echo json_encode(array(
@@ -70,10 +80,9 @@ function insertHora()
         echo json_encode(array(
             'success' => true,
             'message' => 'Já possui um veiculo com uma contagem ativa!',
-            'id' => $response[0]['Id_historico'],
             'data_inicio' => $response[0]['T_inicial'],
             'data_final' => $response[0]['T_final'],
-            'placa' => $response[0]['Placa']
+            'placa' => $response[0]['placa']
         ));
     }
 }

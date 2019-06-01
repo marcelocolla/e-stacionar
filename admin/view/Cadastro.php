@@ -19,7 +19,7 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user" placeholder="CPF" name="Cpf" required>
+                            <input type="text" class="form-control form-control-user" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" placeholder="CPF" id="Cpf" name="Cpf" required>
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
@@ -52,5 +52,12 @@
     </div>
 
     <script src="js/validator.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#Cpf").inputmask({
+                mask: ['999.999.999-99']
+            });
+        })
+    </script>
 </body>
 </html>

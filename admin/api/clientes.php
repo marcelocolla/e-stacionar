@@ -18,7 +18,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function insertData()
 {
-    // if (!empty($_POST)) {
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
@@ -41,10 +40,6 @@ function insertData()
             'error' => mysqli_error($db)
         ));
     }
-
-    // } else {
-    //     header("Location: index.php");
-    // }
 }
 
 function getData()
