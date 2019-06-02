@@ -48,14 +48,12 @@ Number.prototype.pad = function(size) {
     }
 
     function salvarPlaca () {
-        var url = origin + '/admin/api/contador.php',
+        var url = origin + '/admin/api/placa.php',
             data = { placa },
             req = $.ajax({ type: 'POST', url, data });
-
         req.then(function (response) {
             var result = JSON.parse(response);
 
-            debugger;
         }, function (response) {
             alert('Erro ao salvar a placa!');
         });

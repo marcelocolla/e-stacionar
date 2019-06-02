@@ -45,6 +45,10 @@ function insertHora()
     $dbutil = new DBUtils();
     $result = mysqli_query($db, returnSelect($_POST['placa']));
     $response = null;
+    // inicia a Session
+    session_start();
+    // pega as informações do usuário logado.
+    $user = $_SESSION['user'];
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
@@ -57,7 +61,7 @@ function insertHora()
                 )
             )
         ));
-        $hist->setCampo('Id_usuario', 3);
+        $hist->setCampo('Id_usuario', $user['Id_usuario']);
         $hist->setCampo('placa', $dbutil->paraTexto($_POST['placa']));
         $hist->setCampo('ativo', 1);
         $sql = $dbutil->Insert($hist);
