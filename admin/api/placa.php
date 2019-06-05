@@ -40,9 +40,10 @@ function inserirPlaca()
     session_start();
     // pega as informações do usuário logado.
     $user = $_SESSION['user'];
-    $condicaoSelect = sprintf('Placa = %s AND Id_usuario = %s', $_POST['placa'], $user['Id_usuario']);
-    $result = mysqli_query($db, returnSelect($condicaoSelect));
+    $condicaoSelect = sprintf('Placa = %s AND Id_usuario = %s', $dbutil->paraTexto($_POST['placa']), $user['Id_usuario']);
     $response = null;
+    $sqlSelect = returnSelect($condicaoSelect);
+    $result = mysqli_query($db, $sqlSelect);
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
