@@ -36,7 +36,7 @@ function insertData()
     } else {
         echo json_encode(array(
             'success' => false,
-            'message' => 'Falhar ao inserir registro, por favor tente novamente!',
+            'message' => 'Falha ao inserir registro, por favor tente novamente!',
             'error' => mysqli_error($db)
         ));
     }

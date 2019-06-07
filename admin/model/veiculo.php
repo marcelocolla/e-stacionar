@@ -2,11 +2,7 @@
 
 class veiculo
 {
-    private $Id_veiculo = null;
-
-    private $placa = null;
-
-    private $Estado = null;
+    private $Placa = null;
 
     private $Id_usuario = null;
 
