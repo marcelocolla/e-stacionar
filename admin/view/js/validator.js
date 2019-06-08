@@ -20,7 +20,7 @@
 
 ;(function () {
     var form = $('.form-validator'),
-        origin = window.location.origin || '',
+        origin = window.location.origin + '/e-stacionar' || '',
         alertMessage = form.find('.alert'),
         routes = {
             login: origin + '/admin/api/auth.php',
@@ -107,4 +107,5 @@
 
         return $.ajax({ type, url, data });
     }
+
 })();

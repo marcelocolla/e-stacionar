@@ -13,7 +13,7 @@
                         <h1 class="h5 text-white">Registrar-se</h1>
                     </div>
 
-                    <form class="user form-validator" form-validator="cadastro" role="form" method="post">
+                    <form id="cadastro" class="user form-validator" form-validator="cadastro" role="form" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user" placeholder="Nome" name="Nome" required>
                             <div class="help-block with-errors"></div>
@@ -28,11 +28,12 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="password" class="form-control form-control-user" placeholder="Senha" name="Senha" required>
+                                <input id="senha" type="password" class="form-control form-control-user" placeholder="Senha" name="Senha" required>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="col-sm-6">
-                                <input type="password" class="form-control form-control-user" placeholder="Confirme sua senha">
+                                <input id="confirmSenha" type="password" class="form-control form-control-user" placeholder="Confirme sua senha" data-match="#senha"
+                                data-match-error="As senhas não conferem!">
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
@@ -57,6 +58,7 @@
             $("#Cpf").inputmask({
                 mask: ['999.999.999-99']
             });
+
         })
     </script>
 </body>
