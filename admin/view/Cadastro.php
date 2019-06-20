@@ -1,4 +1,4 @@
-<?php require_once'includes/header.php'; ?>
+<?php require_once'includes/head.php'; ?>
 
 <body class="bg-gradient-primary">
     <div class="container">
