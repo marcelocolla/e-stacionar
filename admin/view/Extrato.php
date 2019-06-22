@@ -47,6 +47,20 @@
             </div>
         </div>
     </div>
+    <script>
+    $(document).ready(function () {
+      
+        var url = '/e-stacionar/admin/api/historico.php',
+            data = { placa: 'AAA-1234' },
+            req = $.ajax({ type: 'POST', url, data });
+
+        req.then(function (result) {
+            console.log(result)
+        }, function (response) {
+            alert('Erro ao consultar placa do veículo!');
+        });
+    })
+</script>
 </body>
 
 </html>
