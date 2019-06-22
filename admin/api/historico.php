@@ -8,6 +8,7 @@ require_once('../controller/DBUtils.php');
 getHistorico();
 
 function returnSelect($_prId_usuario){
+
     $hist = new historico();
     $dbutil = new DBUtils();
     $campos = 'h.Id_usuario, h.T_inicial, h.T_final, h.Placa';
@@ -24,11 +25,16 @@ function returnSelect($_prId_usuario){
 
 function getHistorico()
 {
+  
     $con = new DBConect();
     $con->Conectar();
     $db = $con->getConexao();
     $dbUtil = new DBUtils();
-    $result = mysqli_query($db, returnSelect($_POST['Id_usuario']));
+    session_start();
+    $user = $_SESSION['user'];
+    $result = mysqli_query($db, returnSelect($user['Id_usuario']));
+      
+   
 
     $response = array();
 
@@ -42,7 +48,7 @@ function getHistorico()
         'success' => true,
         'message' => 'Dados encontrados!',
         'result' => $response,
-        'Id_usuario' => $_POST['Id_usuario']
+        'Id_usuario' => $user['Id_usuario']
 
     ));
 }
