@@ -27,12 +27,12 @@
                                 <div class="col-12">
                                     <div class=" h2"><?php echo $placa; ?></div>
                                     <span class="h4">21/04/2019</span>
-                                    
+
                                     <div class="row">
                                         <div class="col-6">Hora Inicio</div>
                                         <div class="col-6">Hora final</div>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="col-6">08:25</div>
                                         <div class="col-6">09:30</div>
@@ -49,7 +49,6 @@
     </div>
     <script>
     $(document).ready(function () {
-      
         var url = '/e-stacionar/admin/api/historico.php',
             data = { placa: 'AAA-1234' },
             req = $.ajax({ type: 'POST', url, data });
