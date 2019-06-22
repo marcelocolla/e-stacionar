@@ -108,6 +108,13 @@ a.white {
     transition: all 0.2s ease-out;
 }
 
+.list-veiculo .list-item .separator {
+    margin-top: 10px;
+}
+.list-veiculo .list-item .historico {
+    color: #888;
+}
+
 .list-veiculo .list-item:hover {
     color: #000;
 }

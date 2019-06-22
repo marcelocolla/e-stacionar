@@ -8,7 +8,7 @@
         <!-- Outer Row -->
         <div class="row justify-content-lg-center">
             <div class="col col-lg-6">
-                <div class="justify-content-center text-center mt-5">
+                <div class="justify-content-center text-center mt-1">
 
                     <form class="user" action="Extrato.php" method="get" role="form">
                         <div class="form-group row">
@@ -18,47 +18,60 @@
                         </div>
                     </form>
 
-                    <ul class="list-veiculo">
-                        <?php
-                        for ($i = 0; $i < 1; $i++) :
-                            $placa = 'ABR-3U' . rand(10, 99);
-                            ?>
-                            <li class="list-item text-center">
-                                <div class="col-12">
-                                    <div class=" h2"><?php echo $placa; ?></div>
-                                    <span class="h4">21/04/2019</span>
-
-                                    <div class="row">
-                                        <div class="col-6">Hora Inicio</div>
-                                        <div class="col-6">Hora final</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">08:25</div>
-                                        <div class="col-6">09:30</div>
-                                    </div>
-                                </div>
-                            </li>
-                        <?php
-                    endfor;
-                    ?>
+                    <ul id="historico" class="list-veiculo">
+                        <li class="list-item text-center">Carregando...</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
+<script src="js/moment.min.js"></script>
+<script>
     $(document).ready(function () {
-        var url = '/e-stacionar/admin/api/historico.php',
-            data = { Id_usuario: '12' },
+        var url = '/admin/api/historico.php',
+            data = { Id_usuario: 12 },
             req = $.ajax({ type: 'POST', url, data });
 
-        req.then(function (result) {
-            console.log(result)
+        req.then(function (response) {
+
+            if (response.result.length) {
+                insertData(response.result);
+            } else {
+                $('#historico').html('Nenhum histórico foi encontrar.');
+            }
+
         }, function (response) {
-            alert('Erro ao consultar placa do veículo!');
+            alert('Erro ao consultar histórico veículo!');
         });
+
+        function insertData (result) {
+            var html = '';
+
+            $.each(result, function(index, rec) {
+
+                html += '<li class="list-item text-center">';
+                html += '<section class="col-12">'
+                html += '<div class="h2"><b>' + rec.Placa + '</b></div>';
+                html += '<span class="h5">' + moment(rec.T_inicial).format('L') + '</span>';
+
+                html += '<article class="row historico separator">';
+                html += '  <div class="col-6">Hora Inicio </div>';
+                html += '  <div class="col-6">Hora final </div>';
+                html += '</article>';
+
+                html += '<div class="row historico">';
+                html += '  <div class="col-6"><b>' + moment(rec.T_inicial).format('HH:mm') + ' min</b></div>';
+                html += '  <div class="col-6"><b>' + moment(rec.T_final).format('HH:mm') + ' min</b></div>';
+                html += '</div>';
+
+                html += '</section></li>';
+                debugger;
+            });
+
+
+            $('#historico').html(html);
+        }
     })
 </script>
 </body>
