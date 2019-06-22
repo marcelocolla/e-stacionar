@@ -1,7 +1,7 @@
-<?php include 'includes/header.php'; ?>
+<?php require_once 'includes/header.php'; ?>
 
 <body class="bg-gradient-primary">
-<?php include 'includes/app-heading.php'; ?>
+<?php require_once 'includes/app-heading.php'; ?>
 
 <div class="container">
 
@@ -93,6 +93,15 @@
     $(document).ready(function () {
         $("#placa").inputmask({
             mask: ['AAA-9999', 'AAA-9A99']
+        });
+        var url = '/e-stacionar/admin/api/historico.php',
+            data = { placa: 'AAA-1234' },
+            req = $.ajax({ type: 'POST', url, data });
+
+        req.then(function (result) {
+            console.log(result)
+        }, function (response) {
+            alert('Erro ao consultar placa do veículo!');
         });
     })
 </script>
