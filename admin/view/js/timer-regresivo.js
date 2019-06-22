@@ -14,9 +14,10 @@ Number.prototype.pad = function(size) {
         dataFinal = null,
         atual = null,
         duracao = null,
-        timer = null;
+        timer = null,
+        btnSalvarPlaca = $( "#salvarPlaca");
 
-    $( "#salvarPlaca").on( "click", function() {
+    btnSalvarPlaca.on( "click", function() {
         salvarPlaca();
     });
 
@@ -51,9 +52,15 @@ Number.prototype.pad = function(size) {
         var url = origin + '/admin/api/placa.php',
             data = { placa },
             req = $.ajax({ type: 'POST', url, data });
-        req.then(function (response) {
-            var result = JSON.parse(response);
 
+        req.then(function (response) {
+            btnSalvarPlaca.hide();
+
+            if (response && response.message) {
+                alert(response.message)
+            } else {
+                alert('Placa foi gravada com sucesso!');
+            }
         }, function (response) {
             alert('Erro ao salvar a placa!');
         });
