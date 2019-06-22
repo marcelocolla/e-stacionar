@@ -47,6 +47,7 @@
             </div>
         </div>
     </div>
+
     <script>
     $(document).ready(function () {
         var url = '/e-stacionar/admin/api/historico.php',
