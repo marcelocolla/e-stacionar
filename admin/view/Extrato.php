@@ -65,7 +65,6 @@
                 html += '</div>';
 
                 html += '</section></li>';
-                debugger;
             });
 
 
