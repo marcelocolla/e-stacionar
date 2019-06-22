@@ -46,17 +46,20 @@ a.white {
 .app-heading {
     background-color: #fff;
     color: #2851C4;
-    padding: 16px 24px;
+    padding: 16px;
     display: block;
-    display: flex;
-    align-items: center;
     box-shadow: 0 3px 24px rgba(0,0,0, 0.2);
     min-height: 64px;
 }
 
 .app-heading .user-name {
-    font-size: 20px;
+    font-size: 18px;
     margin-left: 16px;
+}
+.app-heading .menu-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Validar formulario */
