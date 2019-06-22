@@ -51,7 +51,7 @@
     <script>
     $(document).ready(function () {
         var url = '/e-stacionar/admin/api/historico.php',
-            data = { placa: 'AAA-1234' },
+            data = { Id_usuario: '12' },
             req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (result) {
