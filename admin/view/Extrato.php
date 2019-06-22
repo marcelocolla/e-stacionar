@@ -30,8 +30,7 @@
 <script>
     $(document).ready(function () {
         var url = '/admin/api/historico.php',
-            data = { Id_usuario: 12 },
-            req = $.ajax({ type: 'POST', url, data });
+            req = $.ajax({ type: 'POST', url });
 
         req.then(function (response) {
 
