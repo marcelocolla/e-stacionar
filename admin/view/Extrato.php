@@ -37,7 +37,7 @@
             if (response.result.length) {
                 insertData(response.result);
             } else {
-                $('#historico').html('Nenhum histórico foi encontrar.');
+                $('#historico').html('<li class="list-item text-center">Nenhum histórico foi encontrado.</li>');
             }
 
         }, function (response) {
