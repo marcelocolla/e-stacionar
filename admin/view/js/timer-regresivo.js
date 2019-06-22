@@ -5,7 +5,7 @@ Number.prototype.pad = function(size) {
 }
 
 ;(function () {
-    var origin = window.location.origin + '/e-stacionar' || '',
+    var origin = window.location.origin || '',
         placa = document.getElementById('placa').value,
         horaById = document.getElementById('hora'),
         minutosById = document.getElementById('minutos'),
