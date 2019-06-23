@@ -60,9 +60,9 @@ Number.prototype.pad = function(size) {
     }
 
     function stopPlaca () {
-        var url = origin + '/admin/api/contador-stop.php',
+        var url = origin + '/admin/api/stopContador.php',
             data = { placa },
-            req = $.ajax({ type: 'GET', url, data });
+            req = $.ajax({ type: 'POST', url, data });
 
         req.then(function (response) {
             finishTimer();

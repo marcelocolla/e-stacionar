@@ -6,29 +6,24 @@ require_once('../model/historico.php');
 require_once('../controller/DBUtils.php');
 
 
-updateHora();
+finalizarContador();
 
 function returnSelect($_prPlaca)
 {
     $hist = new historico();
     $dbutil = new DBUtils();
     // Separa o Select em partes para não ficar uma linha muito extensa.
-    $campos = ' h.Id_historico, h.T_inicial, h.T_final, v.Placa';
-    $table = sprintf("%s AS h", $hist->getCampo('tabela'));
-    $joinUsuario = 'JOIN usuario AS u ON h.Id_usuario = u.Id_usuario';
-    $joinVeiculo = 'JOIN veiculo AS v ON u.Id_usuario = v.Id_usuario';
-    $condicao = sprintf("v.Placa = %s", $dbutil->paraTexto($_prPlaca));
-    $sql = sprintf("SELECT %s FROM %s %s %s WHERE %s",
+    $campos = ' h.Id_historico';
+    $condicao = sprintf("h.placa = %s AND h.ativo = 1", $dbutil->paraTexto($_prPlaca));
+    $sql = sprintf("SELECT %s FROM %s AS h WHERE %s",
         $campos,
-        $table,
-        $joinUsuario,
-        $joinVeiculo,
+        $hist->getCampo('tabela'),
         $condicao
     );
     return $sql;
 }
 
-function updateHora()
+function finalizarContador()
 {
     $con = new DBConect();
     $con->Conectar();
@@ -36,36 +31,31 @@ function updateHora()
     $hist = new historico();
     $dbutil = new DBUtils();
     $placa = $_POST['placa'];
-    $historico = $_POST['id_hst'];
     $result = mysqli_query($db, returnSelect($placa));
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
-    if (!$response) {
+    if ($response) {
         $hist->setCampo('T_final', $dbutil->paraTexto(Date("Y-m-d H:i:s")));
-        $condicao = sprintf("Id_historico = %s", $historico);
-        $sql = $dbutil->Update($hist,$condicao);
+        $hist->setCampo('ativo', 0);
+        $condicao = sprintf("Id_historico = %s", $response[0]['Id_historico']);
+        $sql = sprintf("UPDATE %s SET T_final = %s, ativo = %s WHERE %s",
+            $hist->getCampo('tabela'),
+            $hist->getCampo("T_final"),
+            $hist->getCampo("ativo"),
+            $condicao
+        );
         if (mysqli_query($db, $sql)) {
             echo json_encode(array(
                 'success' => true,
-                'message' => 'Tempo registrado com sucesso!',
-                'placa' => $response[0]['Placa']
+                'message' => 'Tempo registrado com sucesso!'
             ));
         } else {
             echo json_encode(array(
                 'success' => false,
-                'message' => 'Falha registrar tempo, por favor tente novamente!',
+                'message' => 'não foi possivel concluir o uso de tempo!',
                 'error' => mysqli_error($db)
             ));
         }
-    } else {
-        echo json_encode(array(
-            'success' => true,
-            'message' => 'Já possui um veiculo com uma contagem ativa!',
-            'id' => $response[0]['Id_historico'],
-            'data_inicio' => $response[0]['T_inicial'],
-            'data_final' => $response[0]['T_final'],
-            'placa' => $response[0]['Placa']
-        ));
     }
 }

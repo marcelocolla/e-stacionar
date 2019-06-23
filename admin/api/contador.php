@@ -52,7 +52,20 @@ function insertHora()
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
-    if (!$response) {
+    $dataFinal = strtotime($response[0]['T_final']);
+    $dataAtual = strtotime(date("Y-m-d H:i:s"));
+    if (!$response or
+        $dataFinal <
+        $dataAtual
+    ) {
+        // se possuir contador com hora atual maior que a hora de fim do histórico, atualiza o status do historico existente para
+        //inativo e reinicia um novo contador para que o usuário não tenha que ficar efetuando varias ações para poder iniciar
+        if ($response and
+            $dataFinal <
+            $dataAtual
+        ) {
+            pararContador($response[0]['Id_historico'], $db);
+        }
         $hist->setCampo('T_inicial', $dbutil->paraTexto(date("Y-m-d H:i:s")));
         // gera a hora final com 2 horas incrementadas a partir a hora atual.
         $hist->setCampo('T_final', $dbutil->paraTexto(date("Y-m-d H:i:s",
@@ -69,8 +82,8 @@ function insertHora()
             echo json_encode(array(
                 'success' => true,
                 'message' => 'Registro inserido com sucesso!',
-                'data_inicio' => str_replace("'",'',$hist->getCampo('T_inicial')),
-                'data_final' =>  str_replace("'",'',$hist->getCampo('T_final')),
+                'data_inicio' => str_replace("'", '', $hist->getCampo('T_inicial')),
+                'data_final' => str_replace("'", '', $hist->getCampo('T_final')),
                 'placa' => $hist->getCampo('placa')
             ));
         } else {
@@ -115,4 +128,15 @@ function getData()
         'data_final' => $response[0]['T_final'],
         'placa' => $response[0]['Placa']
     ));
+}
+
+function pararContador($_prIdHist, &$_prDb)
+{
+    $hist = new historico();
+    $sql = sprintf("UPDATE %s SET ativo = 0 WHERE Id_historico = %s", $hist->getCampo('tabela'), $_prIdHist);
+    if (mysqli_query($_prDb, $sql)) {
+        return true;
+    } else {
+        return false;
+    }
 }
