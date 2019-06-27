@@ -7,13 +7,13 @@ require_once('../controller/DBUtils.php');
    
 getHistorico();
 
-function returnSelect($_prId_usuario){
+function returnSelect($_prPlaca){
 
     $hist = new historico();
     $dbutil = new DBUtils();
     $campos = 'h.Id_usuario, h.T_inicial, h.T_final, h.Placa';
     $table = sprintf("%s AS h", $hist->getCampo('tabela'));
-    $condicao = sprintf("h.Id_usuario = %s", $dbutil->paraTexto($_prId_usuario));
+    $condicao = sprintf("h.Placa = %s", $dbutil->paraTexto($_prPlaca));
     $sql = sprintf("SELECT %s FROM %s WHERE %s",
         $campos,
         $table,
@@ -32,7 +32,7 @@ function getHistorico()
     $dbUtil = new DBUtils();
     session_start();
     $user = $_SESSION['user'];
-    $result = mysqli_query($db, returnSelect($user['Id_usuario']));
+    $result = mysqli_query($db, returnSelect($user['Placa']));
       
    
 
@@ -48,7 +48,7 @@ function getHistorico()
         'success' => true,  
         'message' => 'Dados encontrados!',
         'result' => $response,
-        'Id_usuario' => $user['Id_usuario']
+    
 
     ));
 }

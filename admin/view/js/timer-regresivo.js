@@ -100,4 +100,16 @@ Number.prototype.pad = function(size) {
         segundosById.innerHTML = '00';
     }
 
+    /*function inserirCredito () {
+        var url = origin + '/admin/api/InsertCredito.php',
+            data = { vlrcredt },
+            req = $.ajax({ type: 'POST', url, data });
+        req.then(function (response) {
+            var result = JSON.parse(response);
+
+        }, function (response) {
+            alert('Erro ao inserir creditos!');
+        });
+    }*/
+
 })();

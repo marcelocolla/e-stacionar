@@ -2,8 +2,6 @@
 
 class credito
 {
-    private $Id_credito = null;
-
     private $Saldo = null;
 
     private $Id_usuario = null;

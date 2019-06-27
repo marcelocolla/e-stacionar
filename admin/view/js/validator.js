@@ -20,12 +20,13 @@
 
 ;(function () {
     var form = $('.form-validator'),
-        origin = window.location.origin || '',
+        origin = window.location.origin +  || '',
         alertMessage = form.find('.alert'),
         routes = {
             login: origin + '/admin/api/auth.php',
             cadastro: origin + '/admin/api/clientes.php',
-            placa: origin + '/admin/api/placa.php'
+            placa: origin + '/admin/api/placa.php',
+            credito: origin + '/admin/api/InsertCredito.php'
         };
 
     form.validator().on('submit', function (e) {
@@ -52,7 +53,9 @@
                 case 'contagem':
                     formContagem(route);
                     break;
-
+                case 'credito':
+                    formCredito(route);
+                    break;
             }
         }
 
@@ -86,6 +89,21 @@
                 showAlert(message, 'success');
             }, function (response){
                 var message = response.responseJSON.message;
+
+                showAlert(message);
+            });
+    }
+
+    function formCredito (url) {
+        sendForm(form, url)
+            .then(function (response) {
+                var message = response.message;
+
+                form.trigger('reset');
+
+                showAlert(message, 'success');
+            }, function (response){
+                var message = response.responseJSON.message || 'Erro ao inserir creditos';
 
                 showAlert(message);
             });
