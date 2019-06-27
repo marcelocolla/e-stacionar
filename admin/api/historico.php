@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 require_once('../controller/DBConect.php');
 require_once('../model/historico.php');
 require_once('../controller/DBUtils.php');
-   
+
 getHistorico();
 
 function returnSelect($_prId_usuario){
@@ -38,12 +38,12 @@ function getHistorico()
 
     $response = array();
 
-    
+
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
     }
 
-    
+
     echo json_encode(array(
         'success' => true,  
         'message' => 'Dados encontrados!',
@@ -52,4 +52,3 @@ function getHistorico()
 
     ));
 }
-
