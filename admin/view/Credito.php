@@ -61,9 +61,10 @@
             $("#cdseg").inputmask({
                 mask: ['999']
             });
-            $(":input").inputmask();
 
-        })
+            $(":input").inputmask();
+       
+        });
     </script>
 
 
