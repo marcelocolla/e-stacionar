@@ -32,7 +32,7 @@ function getHistorico()
     $dbUtil = new DBUtils();
     session_start();
     $user = $_SESSION['user'];
-    $result = mysqli_query($db, returnSelect($user['Placa']));
+    $result = mysqli_query($db, returnSelect($_POST['Placa']);
       
    
 

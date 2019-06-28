@@ -10,7 +10,7 @@ class DBConect
     //private $MYSQL_USUARIO = 'root';
     //private $MYSQL_SENHA = '';
     //private $MYSQL_IP = 'localhost';
-   // private $MYSQL_DATABASE = 'estacionar';
+    //private $MYSQL_DATABASE = 'estacionar';
 
     public function getDadosConexao() {
         return array($this->MYSQL_USUARIO, $this->MYSQL_SENHA, $this->MYSQL_IP, $this->MYSQL_DATABASE);
