@@ -15,6 +15,20 @@ switch ($_SERVER['REQUEST_METHOD']) {
         getData();
 }
 
+function returnSelect($_prEmail)
+{
+    $user = new Usuario();
+    $dbutil = new DBUtils();
+    // Separa o Select em partes para não ficar uma linha muito extensa.
+    $campos = ' u.Id_Usuario';
+    $condicao = sprintf("u.Email = %s", $dbutil->paraTexto($_prEmail));
+    $sql = sprintf("SELECT %s FROM %s AS u WHERE %s",
+        $campos,
+        $user->getCampo('tabela'),
+        $condicao
+    );
+    return $sql;
+}
 
 function insertData()
 {
@@ -23,21 +37,34 @@ function insertData()
     $db = $con->getConexao();
     $usuario = new usuario();
     $dbutil = new DBUtils();
-    $usuario->setCampo('Nome', $dbutil->paraTexto($_POST['Nome']));
-    $usuario->setCampo('Cpf', $dbutil->paraTexto($_POST['Cpf']));
-    $usuario->setCampo('Email', $dbutil->paraTexto($_POST['Email']));
-    $usuario->setCampo('Senha', $dbutil->paraTexto(MD5($_POST['Senha'])));
-    $sql = $dbutil->Insert($usuario);
-    if (mysqli_query($db, $sql)) {
-        echo json_encode(array(
-            'success' => true,
-            'message' => 'Registro inserido com sucesso!'
-        ));
+    $sqlSelect = returnSelect($_POST['Email']);
+    $result = mysqli_query($db, $sqlSelect);
+    $cadastrar = true;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $cadastrar = false;
+    }
+    if ($cadastrar) {
+        $usuario->setCampo('Nome', $dbutil->paraTexto($_POST['Nome']));
+        $usuario->setCampo('Cpf', $dbutil->paraTexto($_POST['Cpf']));
+        $usuario->setCampo('Email', $dbutil->paraTexto($_POST['Email']));
+        $usuario->setCampo('Senha', $dbutil->paraTexto(MD5($_POST['Senha'])));
+        $sql = $dbutil->Insert($usuario);
+        if (mysqli_query($db, $sql)) {
+            echo json_encode(array(
+                'success' => true,
+                'message' => 'Registro inserido com sucesso!'
+            ));
+        } else {
+            echo json_encode(array(
+                'success' => false,
+                'message' => 'Falha ao inserir registro, por favor tente novamente!',
+                'error' => mysqli_error($db)
+            ));
+        }
     } else {
         echo json_encode(array(
-            'success' => false,
-            'message' => 'Falha ao inserir registro, por favor tente novamente!',
-            'error' => mysqli_error($db)
+            'success' => true,
+            'message' => 'Email já existente em nossos registros!'
         ));
     }
 }
