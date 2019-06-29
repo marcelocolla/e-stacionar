@@ -20,7 +20,7 @@
 
 ;(function () {
     var form = $('.form-validator'),
-        origin = window.location.origin || '',
+        origin = window.location.origin  || '',
         alertMessage = form.find('.alert'),
         routes = {
             login: origin + '/admin/api/auth.php',
