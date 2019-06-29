@@ -29,7 +29,7 @@
 <script src="js/moment.min.js"></script>
 <script>
     $(document).ready(function () {
-        var url = '/E-stacionar/admin/api/historico.php',
+        var url = '/admin/api/historico.php',
             req = $.ajax({ type: 'POST', url });
 
         req.then(function (response) {
