@@ -11,7 +11,7 @@ function returnSelect($_prPlaca){
 
     $hist = new historico();
     $dbutil = new DBUtils();
-    $campos = 'h.Id_usuario, h.T_inicial, h.T_final, h.Placa';
+    $campos = 'h.Id_usuario, h.T_inicial, h.T_final, h.Placa, h.ativo';
     $table = sprintf("%s AS h", $hist->getCampo('tabela'));
     $condicao = sprintf("h.Placa = %s", $dbutil->paraTexto($_prPlaca));
     $sql = sprintf("SELECT %s FROM %s WHERE %s",
@@ -30,25 +30,32 @@ function getHistorico()
     $con->Conectar();
     $db = $con->getConexao();
     $dbUtil = new DBUtils();
-    session_start();
-    $user = $_SESSION['user'];
-    $result = mysqli_query($db, returnSelect($user['Placa']));
-      
-   
+    
+    $result = mysqli_query($db, returnSelect($_POST['Placa']));
 
     $response = array();
 
     
     while ($row = mysqli_fetch_assoc($result)) {
         $response[] = $row;
-    }
 
+    }
+    $dataFinal = strtotime($response[count($response)-1]['T_final']);
+    $dataAtual = strtotime(date("Y-m-d H:i:s"));
+    $situacao = "";
+    if($dataAtual > $dataFinal and intval($response[count($response)-1]['ativo']) == 1){
+        $situacao = "Tempo Excedido";
+    }
+    $ativo = (intval($response[count($response)-1]['ativo']) == 1) ? "Ativo" : "Inativo";
+    $response[count($response)-1]['situacao'] = $situacao;
+    $response[count($response)-1]['ativo'] = $ativo;
     
     echo json_encode(array(
         'success' => true,  
         'message' => 'Dados encontrados!',
-        'result' => $response,
-    
+        'result' => $response[count($response)-1],
+        'situacao' => $situacao,
+        'ativo' => $ativo
 
     ));
 }

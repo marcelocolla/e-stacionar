@@ -1,13 +1,14 @@
 <?php require_once 'includes/header.php'; ?>
 
 <body class="bg-gradient-primary">
+<?php require_once 'includes/app-heading.php'; ?>
     <div class="container">
 
         <!-- Outer Row -->
         <div class="row justify-content-lg-center">
             <div class="col col-lg-6">
                 <div class="justify-content-center text-center mt-5">
-                    <img src="img/logo.png" class="img-fluid max-width: 10%" alt="Responsive image">
+                    <!--<img src="img/logo.png" class="img-fluid max-width: 10%" alt="Responsive image">-->
 
                     <div class="text-center mt-4 mb-4">
                         <h1 class="h5 text-white">Adicionar crédito</h1>

@@ -8,8 +8,7 @@
     <!-- Outer Row -->
     <div class="row justify-content-lg-center">
         <div class="col col-lg-6">
-            <div class="justify-content-center text-center mt-5">
-
+            <div class="justify-content-center text-center mt-2">
                 <form class="user" action="Contagem.php" method="get" role="form">
                     <div class="form-group row">
                         <div class="col-9">
@@ -83,6 +82,19 @@
                 ?>
 
             </div>
+            
+            <?php
+            $user = $_SESSION['user'];
+            if($user['Permissao'] == 1){
+            ?>
+            <div >
+                    <a href="ConsultaPlaca.php">   
+                        <button class="btn btn-primary btn-user btn-block"> <i class="fas fa-user-cog"></i> Consultar Placa</button>
+                    </a>
+            </div>
+            <?php
+        }
+        ?>
         </div>
     </div>
 
